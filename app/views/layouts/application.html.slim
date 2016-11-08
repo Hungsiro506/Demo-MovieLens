@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title = @page_title
+    = render 'shared/head/meta'
+    = render 'shared/head/favicon'
+    = render 'shared/head/stylesheets'
+    = render 'shared/head/javascripts'
+    = render 'shared/head/analytics'
+  body
+    = render 'shared/header'
+    = yield
+
+    = render 'shared/flash'
+    #main role="main"
+
+    = render 'shared/footer'
+    = render 'shared/copyright'
