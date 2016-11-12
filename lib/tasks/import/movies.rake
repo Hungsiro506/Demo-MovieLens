@@ -13,7 +13,7 @@ namespace :import do
 
     File.open(MOVIES_FILE, 'r').each_line do |line|
       puts "Reading line #{number_with_delimiter $INPUT_LINE_NUMBER}..."
-      data = line.split('::')
+      data = line.split(',')
 
       movie = Movie.new
       movie.movielens_id = data[0]
