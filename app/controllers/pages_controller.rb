@@ -5,7 +5,8 @@ class PagesController < ApplicationController
     client = PredictionIO::EngineClient.new(ENV['PIO_ENGINE_URL'])
 
     # Query PredictionIO.
-    response = client.send_query('user' => ['#{current_user.id}'], 'num' => 25)
+    response = client.send_query('user' => current_user.id, 'num' => 25)
+    p response
     @recomendations = []
     # Loop though recomendations.
     response['itemScores'].each do |item|

@@ -39,6 +39,18 @@ class MoviesController < ApplicationController
   def rate
     rating = current_user.rateds.where(movie_id: params[:movie_id]).first_or_create
     rating.update_attributes(rate: params[:rate])
+    client = PredictionIO::EventClient.new(ENV["PIO_ACCESS_KEY"], ENV["PIO_EVENT_SERVER_URL"])
+
+    # A user rates an item.
+    client.create_event(
+      'rate',
+      'user',
+      current_user.id, {
+        'targetEntityType' => 'item',
+        'targetEntityId' => params[:movie_id],
+        'properties' => { 'rating' => params[:rate].to_f}
+      }
+    )
     return head :ok
   end
 end
