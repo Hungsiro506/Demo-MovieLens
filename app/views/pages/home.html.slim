@@ -1,12 +1,12 @@
 - page_title 'MovieLens Demo'
 
 .jumbotron
-  .container
-    
+  .container  
     p MovieLens Rails Demo
+= render 'shared/flash'
 .container
   .row
-    h1  Top movie
+    h1  Top movies
     - @top_movies.each do |movie|
       - if movie
         .movie-thumbnail.col-md-4
@@ -17,7 +17,7 @@
 
           = render 'movies/details', movie: movie
   .row
-    h1 Recomendations movie
+    h1 Recommendation for you
     - @recomendations.each do |movie|
       - if movie
         .movie-thumbnail.col-md-4

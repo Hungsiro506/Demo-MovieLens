@@ -5,12 +5,14 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
-    @rating = current_user.ratings.where(movie_id: @movie.id).first unless current_user.blank?
+    @rating = current_user.rateds.where(movie_id: @movie.id).first unless current_user.blank?
+    p @rating
     # Create PredictionIO client.
     client = PredictionIO::EngineClient.new(ENV['PIO_ENGINE_URL'])
 
     # Query PredictionIO.
     response = client.send_query('item' => @movie.id, 'num' => 4)
+    
     @catogories_like = []
     if current_user && current_user.category_users
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
@@ -35,8 +37,8 @@ class MoviesController < ApplicationController
   end
 
   def rate
-    rating = current_user.ratings.where(movie_id: params[:movie_id]).first_or_create
-    rating.update_attributes(rating: params[:rate])
+    rating = current_user.rateds.where(movie_id: params[:movie_id]).first_or_create
+    rating.update_attributes(rate: params[:rate])
     return head :ok
   end
 end
