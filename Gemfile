@@ -44,3 +44,5 @@ group :development, :test do
   # Load .env file!
   gem 'dotenv-rails'
 end
+
+gem 'devise'
