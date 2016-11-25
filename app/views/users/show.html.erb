@@ -1,74 +1,82 @@
-<% if !current_user.admin? %>
-  <h1>List Like</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Delete</th>
-    </tr>
-    <% @category_users.each do |c| %>
+<% @page_title = 'MovieLens Demo' %>
+<div class="jumbotron">
+  <div class="container">
+    <p>User info</p>
+  </div>
+</div>
+<div class="container">
+  <% if !current_user.admin? %>
+    <h1>List Like</h1>
+    <table class="table">
       <tr>
-        <td><%= c.category.try(:name) %></td>
-        <td><%= link_to "Delete", "/remove_like/" + c.id.to_s, method: :delete %></td>
+        <th>Name</th>
+        <th>Delete</th>
       </tr>
-    <% end -%>
-  </table>
-  <h1>List Unlike</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Delete</th>
-    </tr>
-    <% @un_category_users.each do |c| %>
-      <tr>
-        <td><%= c.category.try(:name) %></td>
-        <td><%= link_to "Delete", "/remove_like/" + c.id.to_s, method: :delete %></td>
-      </tr>
-    <% end -%>
-  </table>
-  <h1>Add Like</h1>
-  <%= form_tag(like_categories_path, :method=>'post', :multipart => true) do %>
-  <div>
-    <label>Name</label>
-    <select name="category">
-      <% @categories.each do |c| %>
-        <option value="<%= c.id %>"><%= c.name %></option>
+      <% @category_users.each do |c| %>
+        <tr>
+          <td><%= c.category.try(:name) %></td>
+          <td><%= link_to "Delete", "/remove_like/" + c.id.to_s, method: :delete %></td>
+        </tr>
       <% end -%>
-    </select>
-  </div>
-  <button type="submit">Like</button>
-  <% end -%>
-  <h1>Add Unlike</h1>
-  <%= form_tag(unlike_categories_path, :method=>'post', :multipart => true) do %>
-  <div>
-    <label>Name</label>
-    <select name="category">
-      <% @categories.each do |c| %>
-        <option value="<%= c.id %>"><%= c.name %></option>
-      <% end -%>
-    </select>
-  </div>
-  <button type="submit">Like</button>
-  <% end -%>
-<% else %>
-  <h1>List Category</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Delete</th>
-    </tr>
-    <% @categories.each do |c| %>
+    </table>
+    <h1>List Unlike</h1>
+    <table class="table">
       <tr>
-        <td><%= c.try(:name) %></td>
-        <td><%= link_to "Delete", category_path(c.id), method: :delete %></td>
+        <th>Name</th>
+        <th>Delete</th>
       </tr>
+      <% @un_category_users.each do |c| %>
+        <tr>
+          <td><%= c.category.try(:name) %></td>
+          <td><%= link_to "Delete", "/remove_like/" + c.id.to_s, method: :delete %></td>
+        </tr>
+      <% end -%>
+    </table>
+    <h1>Add Like</h1>
+    <%= form_tag(like_categories_path, :method=>'post', :multipart => true) do %>
+      <div class="form-group">
+        <label>Name</label>
+        <select name="category" class="form-control">
+          <% @categories.each do |c| %>
+            <option value="<%= c.id %>"><%= c.name %></option>
+          <% end -%>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-default">Like</button>
     <% end -%>
-  </table>
-  <h1>Add new category</h1>
-  <%= form_tag(categories_path, :method=>'post', :multipart => true) do %>
-  <div>
-    <label>Name</label>
-    <input type="text" name="category">
-  </div>
-  <button type="submit">Create</button>
+    <h1>Add Unlike</h1>
+    <%= form_tag(unlike_categories_path, :method=>'post', :multipart => true) do %>
+    <div class="form-group">
+      <label>Name</label>
+      <select name="category" class="form-control">
+        <% @categories.each do |c| %>
+          <option value="<%= c.id %>"><%= c.name %></option>
+        <% end -%>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-default">Like</button>
+    <% end -%>
+  <% else %>
+    <h1>List Category</h1>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Delete</th>
+      </tr>
+      <% @categories.each do |c| %>
+        <tr>
+          <td><%= c.try(:name) %></td>
+          <td><%= link_to "Delete", category_path(c.id), method: :delete %></td>
+        </tr>
+      <% end -%>
+    </table>
+    <h1>Add new category</h1>
+    <%= form_tag(categories_path, :method=>'post', :multipart => true) do %>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="category" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-default" class="form-control">Create</button>
+    <% end -%>
   <% end -%>
-<% end -%>
+</div>
