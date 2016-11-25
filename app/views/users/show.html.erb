@@ -37,7 +37,7 @@
       <div class="form-group">
         <label>Name</label>
         <select name="category" class="form-control">
-          <% @categories.each do |c| %>
+          <% @categories_like.each do |c| %>
             <option value="<%= c.id %>"><%= c.name %></option>
           <% end -%>
         </select>
@@ -49,7 +49,7 @@
     <div class="form-group">
       <label>Name</label>
       <select name="category" class="form-control">
-        <% @categories.each do |c| %>
+        <% @categories_unlike.each do |c| %>
           <option value="<%= c.id %>"><%= c.name %></option>
         <% end -%>
       </select>
