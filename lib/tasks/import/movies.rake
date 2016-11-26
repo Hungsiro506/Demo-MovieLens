@@ -1,7 +1,8 @@
 require 'rainbow/ext/string'
 require 'csv'
 include ActionView::Helpers::NumberHelper
-MOVIES_FILE = Rails.root.join('data', 'movies.dat')
+#MOVIES_FILE = Rails.root.join('data', 'movies.dat')
+MOVIES_FILE = Rails.root.join('data', 'movies.csv')
 
 namespace :import do
   desc 'Import movies into database'
@@ -14,13 +15,14 @@ namespace :import do
 
     File.open(MOVIES_FILE, "r:UTF-8").each_line do |line|
       puts "Reading line #{number_with_delimiter $INPUT_LINE_NUMBER}..."
-      #20M data set :
-      #data = line.split(',')
-      #10M data set :
+      
       if ! line.valid_encoding?
        line = line.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
       end
-        data = line.split('::')
+        #20M data set :
+        data = line.split(',')
+      #10M data set :
+        #data = line.split('::')
 
       movie = Movie.new
       movie.movielens_id = data[0]

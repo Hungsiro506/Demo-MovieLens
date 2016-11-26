@@ -1,7 +1,8 @@
 require 'rainbow/ext/string'
 require 'csv'
 include ActionView::Helpers::NumberHelper
-RATINGS_FILE = Rails.root.join('data', 'ratings.dat')
+RATINGS_FILE = Rails.root.join('data', 'ratings.csv')
+#RATINGS_FILE = Rails.root.join('data', 'ratings.dat')
 
 namespace :import do
   desc 'Import movies into database'
