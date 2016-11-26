@@ -16,9 +16,9 @@ namespace :import do
       Thread.new{
         puts "Reading line #{number_with_delimiter $INPUT_LINE_NUMBER}..."
         #20M data set :
-        #data = line.split(',')
+        data = line.split(',')
         #10M data set :
-        data = line.split('::')
+        #data = line.split('::')
         rating = Rating.new
         rating.movielens_user_id = data[0]
         rating.movielens_movie_id = data[1]
