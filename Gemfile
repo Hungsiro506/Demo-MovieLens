@@ -22,7 +22,8 @@ gem 'rainbow'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'imdb', '~> 0.8'
-
+gem 'omdb', '~> 1.0', '>= 1.0.4'
+gem 'omdbapi'
 gem 'pg'
 
 gem 'predictionio'

@@ -4,7 +4,8 @@ postgres: &postgres
   password:   hung # Your Password
   encoding:   utf8
   host:       localhost
-  database:   movielens
+  #database:   movielens #this is database 10m
+  database: movielens20m
 
 sqlite: &sqlite
   adapter:    sqlite3

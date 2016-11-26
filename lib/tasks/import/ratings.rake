@@ -11,12 +11,14 @@ namespace :import do
 
     puts 'Starting import...'.color(:green)
 
-    File.open(RATINGS_FILE, 'r').each_line do |line|
+    File.open(RATINGS_FILE, "r").each_line do |line|
 
       Thread.new{
         puts "Reading line #{number_with_delimiter $INPUT_LINE_NUMBER}..."
-        data = line.split(',')
-
+        #20M data set :
+        #data = line.split(',')
+        #10M data set :
+        data = line.split('::')
         rating = Rating.new
         rating.movielens_user_id = data[0]
         rating.movielens_movie_id = data[1]

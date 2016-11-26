@@ -1,11 +1,12 @@
 require 'rainbow/ext/string'
 require 'net/http'
+require 'omdbapi'
+require 'omdb'
 include ActionView::Helpers::NumberHelper
 namespace :import do
   desc 'IMDB stats'
   task imdb_stats: :environment do
     missing_poster_count = Movie.where('poster_url IS NULL').count
-
     puts "Missing Poster Count: #{number_with_delimiter missing_poster_count}"
   end
 
@@ -20,17 +21,19 @@ namespace :import do
     Movie.find_each.with_index do |movie, index|
       puts "Starting #{movie.title}... #{number_with_delimiter index + 1} of #{number_with_delimiter movie_count}"
 
-      m = Imdb::Movie.new(movie.imdb_id)
 
+      # mixing using OMDB and IMDB
+
+      #m = Imdb::Movie.new('tt'+ movie.imdb_id)
+      # IMDB search for url it doesn't work
+      m = OMDB.id(movie.imdb_id)
       if m
         puts "Updating IMDB ID #{movie.imdb_id}!"
-        movie.imdb_rating = m.rating
+        
         movie.poster_url = m.poster
-        movie.imdb_tagline = m.tagline
-        movie.imdb_mpaa_rating = m.mpaa_rating
-        movie.imdb_url = m.url
-        movie.imdb_votes = m.votes
-
+        movie.imdb_tagline = m.plot if m.plot
+        #puts m.poster
+        
         if movie.save
           puts "Movie #{movie.title} saved!".color(:green)
           success_count += 1
@@ -46,6 +49,8 @@ namespace :import do
         puts error.color(:red)
         missing_count += 1
       end
+
+
     end
 
     puts 'Done!'.color(:green)
@@ -73,8 +78,18 @@ namespace :import do
         imdb_id = m.id
 
         puts "Adding IMDB ID #{imdb_id}!"
-        movie.imdb_id = imdb_id
-        movie.poster_url = m.poster
+        movie.imdb_id = 'tt'+imdb_id
+        #puts m.mpaa_rating
+        movie.imdb_mpaa_rating = m.mpaa_rating
+        #puts m.rating
+        movie.imdb_rating = m.rating
+        #puts m.tagline
+        movie.imdb_tagline = m.tagline
+        #puts m.url.chomp("combined")
+        #puts m.url[0...-4]
+        movie.imdb_url = m.url.chomp('combined')
+        #puts m.votes
+        movie.imdb_votes = m.votes
 
         if movie.save
           puts "Movie #{movie.title} saved!".color(:green)
