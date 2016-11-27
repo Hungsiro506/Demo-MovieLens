@@ -27,7 +27,7 @@ namespace :import do
       #m = Imdb::Movie.new('tt'+ movie.imdb_id)
       # IMDB search for url it doesn't work
       #just for case 833 movie doesn't have
-      if movie.imdb_id
+      
         m = OMDB.id(movie.imdb_id)
         if !m.key?(:error)
           puts "Updating IMDB ID #{movie.imdb_id}!"
@@ -56,7 +56,7 @@ namespace :import do
           puts error.color(:red)
           missing_count += 1
         end
-      end
+      
 
     end
 
