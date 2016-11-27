@@ -29,7 +29,7 @@ namespace :import do
       #just for case 833 movie doesn't have
       if movie.imdb_id
         m = OMDB.id(movie.imdb_id)
-        if m
+        if !m.key?(:error)
           puts "Updating IMDB ID #{movie.imdb_id}!"
           
           movie.poster_url = m.poster
