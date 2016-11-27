@@ -33,7 +33,12 @@ namespace :import do
         movie.poster_url = m.poster
         movie.imdb_tagline = m.plot if m.plot
         #puts m.poster
-        
+        movie.movie_type = m.type
+        movie.year = m.year
+        actors = m.actors.chomp
+        #puts actors
+        movie.actors = actors.split(',')
+
         if movie.save
           puts "Movie #{movie.title} saved!".color(:green)
           success_count += 1

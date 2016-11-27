@@ -6,10 +6,12 @@ namespace :import do
   desc 'Send the data to PredictionIO'
   task predictionio: :environment do
     start_time = Time.current
-    puts "Started at: #{start_time}".color(:blue)
-
+    #puts "Started at: #{start_time}".color(:blue)
+    #puts ENV['PIO_ACCESS_KEY']
+    #puts ENV['PIO_EVENT_SERVER_URL']
     client = PredictionIO::EventClient.new(ENV['PIO_ACCESS_KEY'], ENV['PIO_EVENT_SERVER_URL'], THREADS)
-
+    
+    #puts client
     puts 'Starting import...'.color(:blue)
 
     puts 'Starting user import...'.color(:blue)
@@ -21,6 +23,7 @@ namespace :import do
         'user',
         user_id
       )
+      #puts h
       puts "Sent user ID #{user_id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter user_count}"
     end
 
@@ -32,7 +35,7 @@ namespace :import do
         '$set',
         'item',
         movie.movielens_id,
-        { 'properties' => { 'categories' => movie.genres } }
+        { 'properties' => { 'categories' => movie.genres,'actors' => movie.actors, 'year' => movie.year,'type' => movie.movie_type } }
       )
       puts "Sent movie ID #{movie.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter movie_count}"
     end

@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20161125044144) do
   create_table "movies", force: :cascade do |t|
     t.integer "movielens_id"
     t.string  "title"
-    t.text    "genres",                default: [], array: true
+    t.text    "genres",                           default: [], array: true
     t.string  "imdb_id"
     t.string  "poster_url"
     t.float   "imdb_rating"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20161125044144) do
     t.integer "imdb_votes"
     t.integer "cached_rating_count"
     t.float   "cached_average_rating"
+    t.text    "actors",                            default: [], array: true
+    t.string  "movie_type",                  limit: 50
+    t.string  "year",                  limit: 50
   end
 
   create_table "rateds", force: :cascade do |t|
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20161125044144) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "movie_id"
+    t.integer  "movielens_user_id"
+    t.integer  "movielens_movie_id"
     t.float    "rating"
     t.datetime "rated_at"
   end

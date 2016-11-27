@@ -1,3 +1,8 @@
 2016-11-18 16:15:41,616 INFO  io.prediction.tools.console.App$ [main] -                 Name |   ID |                                                       Access Key | Allowed Event(s)
 2016-11-18 16:15:41,685 INFO  io.prediction.tools.console.App$ [main] -       Recommendation |    5 | PxTuKmWehRpcEjxKFl4fSY36ceuIK5lmdX4V0IeUKfA6q3Uo7TrgolN7lk0S2ePf | (all)
 2016-11-18 16:15:41,686 INFO  io.prediction.tools.console.App$ [main] - Finished listing 1 app(s).
+2016-11-27 19:36:48,140 INFO  io.prediction.tools.console.App$ [main] -                 Name |   ID |                                                       Access Key | Allowed Event(s)
+2016-11-27 19:36:48,235 INFO  io.prediction.tools.console.App$ [main] -        MovieLensDemo |    8 | 2tWUyK6YdfFrJ3A1bCTS4iHY4PatNbYHkuAdfUektCiKNJcv3VdGfNGmVsuFp16J | (all)
+2016-11-27 19:36:48,243 INFO  io.prediction.tools.console.App$ [main] -       Recommendation |    5 | PxTuKmWehRpcEjxKFl4fSY36ceuIK5lmdX4V0IeUKfA6q3Uo7TrgolN7lk0S2ePf | (all)
+2016-11-27 19:36:48,255 INFO  io.prediction.tools.console.App$ [main] -                 test |    7 | cpOT6IGFperYl4SpYJFW6T2Bi0R8QvG6mlDLEJxb5xbGeEcpALltGWJiU0f1jVsw | (all)
+2016-11-27 19:36:48,256 INFO  io.prediction.tools.console.App$ [main] - Finished listing 3 app(s).
