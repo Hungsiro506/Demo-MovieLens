@@ -17,7 +17,7 @@ namespace :import do
       Thread.new{
         puts "Reading line #{number_with_delimiter $INPUT_LINE_NUMBER}..."
         #20M data set :
-        data = line.split(',')
+        data = line.force_encoding("UTF-8").chomp.split(',')
         #10M data set :
         #data = line.split('::')
         rating = Rating.new

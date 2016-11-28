@@ -28,7 +28,7 @@ namespace :import do
       movie.movielens_id = data[0]
       movie.title = data[1].force_encoding("UTF-8")
 
-      genres = data[2].split('|')
+      genres = data[2].force_encoding("UTF-8").chomp.split('|')
       movie.genres = genres
 
       if movie.save
