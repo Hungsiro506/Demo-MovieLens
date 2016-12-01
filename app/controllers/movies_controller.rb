@@ -18,7 +18,9 @@ class MoviesController < ApplicationController
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
       h = {}
       h['user'] = current_user.id
-      h['fields'] = [{"name" => "categories", "userBias" => 2, "item" => "#{@movie.id}", "values" => [current_user.category_users.like.to_a], "bias": -1}, {"name" => "categories", "values" => [current_user.category_users.un_like.to_a], "bias": 1.02}]
+      h['userBias'] = 2
+      h['item'] = movie.id
+      h['fields'] = [{"name" => "categories",  "values" => current_user.category_users.like.to_a, "bias": 1}, {"name" => "categories", "values" => current_user.category_users.un_like.to_a, "bias": -1.02}]
       h['num'] = 4
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
         "/queries.json?accessKey=#{ENV['PIO_ACCESS_KEY']}", h.to_json

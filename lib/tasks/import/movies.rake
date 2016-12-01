@@ -19,6 +19,7 @@ namespace :import do
       if ! line.valid_encoding?
        line = line.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
       end
+      puts "line : " + line
         #20M data set :
         data = line.split(',')
       #10M data set :
@@ -33,6 +34,7 @@ namespace :import do
 
       if movie.save
         puts "Movie #{movie.id} saved!".color(:green)
+
       else
         puts "Movie failed to save! #{movie.errors.full_messages.join('; ')}".color(:red)
       end

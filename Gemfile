@@ -29,6 +29,11 @@ gem 'pg'
 gem 'predictionio'
 gem 'smarter_csv'
 
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
+
 group :production do
   # For Heroku!
   gem 'rails_12factor'

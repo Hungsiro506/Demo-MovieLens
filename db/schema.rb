@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20161125044144) do
     t.integer "imdb_votes"
     t.integer "cached_rating_count"
     t.float   "cached_average_rating"
-    t.text    "actors",                            default: [], array: true
-    t.string  "movie_type",                  limit: 50
+    t.text    "actors",                                        array: true
+    t.string  "movie_type",            limit: 50
     t.string  "year",                  limit: 50
   end
 
