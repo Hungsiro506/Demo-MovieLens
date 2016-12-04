@@ -55,4 +55,9 @@ class MoviesController < ApplicationController
     )
     return head :ok
   end
+
+
+  def show_simply
+    @movie = Movie.find(params[:id])
+  end  
 end

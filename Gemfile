@@ -32,7 +32,7 @@ gem 'smarter_csv'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-
+gem 'searchkick'
 
 group :production do
   # For Heroku!

@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   delete '/remove_like/:id' => "categories#remove_like"
   get '/rate' => "movies#rate"
+  get "search" => "search#search"
+  get 'search/typeahead/:term' => 'search#typeahead'
 end
