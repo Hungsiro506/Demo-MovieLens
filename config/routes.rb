@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/rate' => "movies#rate"
   get "search" => "search#search"
   get 'search/typeahead/:term' => 'search#typeahead'
+  get "movies/:id" => "movies#show_simply"
 end

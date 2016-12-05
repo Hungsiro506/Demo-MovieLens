@@ -1,0 +1,14 @@
+h2
+  | Search Results for:
+  i= params[:term]
+- if @articles
+  ul.search_results
+    - @articles.with_details.each do |movie, details|
+      li
+        h3
+          = link_to movie.title, controller: "movies", action: "show_simply", id: movie.id
+        p
+          = details[:highlight][:imdb_tagline].html_safe
+          | \...
+- else
+  p Your search did not match any documents.
