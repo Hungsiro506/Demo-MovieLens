@@ -1,41 +1,42 @@
+- page_title 'MovieLens Demo'
+
+.jumbotron
+  .container  
+    p MovieLens Rails Demo
+= render 'shared/flash'
 .container
-  h1 Use Bootstrap's carousel to show multiple items per slide.
   .row
-    .col-md-12
-      #theCarousel.carousel.slide.multi-item-carousel
-        .carousel-inner
-          .item.active
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/f44336/000000" /
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/e91e63/000000" /
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/9c27b0/000000" /
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/673ab7/000000" /
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/4caf50/000000" /
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/8bc34a/000000" /
-          /! add  more items here
-          /! Example item start:
-          .item
-            .col-xs-4
-              a href="#1" 
-                img.img-responsive src="http://placehold.it/300/8bc34a/000000" /
-          /! Example item end
-        a.left.carousel-control data-slide="prev" href="#theCarousel" 
-          i.glyphicon.glyphicon-chevron-left
-        a.right.carousel-control data-slide="next" href="#theCarousel" 
-          i.glyphicon.glyphicon-chevron-right
+    = render 'search/form'
+  .row
+    h1  Top movies
+    - @top_movies.each do |movie|
+      - if movie
+        .movie-thumbnail.col-md-4
+          .image
+            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
+          .title
+            h4 = link_to movie.title, movie
+
+          = render 'movies/details', movie: movie
+  .row
+    h1 Recommendation for you
+    - @recomendations.each do |movie|
+      - if movie
+        .movie-thumbnail.col-md-4
+          .image
+            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
+          .title
+            h4 = link_to movie.title, movie
+
+          = render 'movies/details', movie: movie
+  .row
+    h1  Like category
+    - @catogories_like.each do |movie|
+      - if movie
+        .movie-thumbnail.col-md-4
+          .image
+            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
+          .title
+            h4 = link_to movie.title, movie
+
+          = render 'movies/details', movie: movie
