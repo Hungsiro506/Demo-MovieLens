@@ -35,7 +35,9 @@ namespace :import do
         '$set',
         'item',
         movie.movielens_id,
-        { 'properties' => { 'categories' => movie.genres,'actors' => movie.actors, 'year' => movie.year,'type' => movie.movie_type } }
+        #too much movies factors.
+        #{ 'properties' => { 'categories' => movie.genres,'actors' => movie.actors, 'year' => movie.year,'type' => movie.movie_type } }
+        { 'properties' => { 'categories' => movie.genres } }
       )
       puts "Sent movie ID #{movie.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter movie_count}"
     end
