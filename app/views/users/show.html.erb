@@ -6,6 +6,26 @@
 </div>
 <div class="container">
   <% if !current_user.admin? %>
+    <h1>List Movie Rating</h1> 
+    <div class="owl-carousel">
+      <% @ratings.each do |movie| %>
+        <% if movie %>
+          <div>
+            <div class="movie-thumbnail">
+              <div class="image">
+                <%= link_to image_tag(movie.poster_url, alt: movie.title), movie %>
+              </div>
+              <div class="title">
+                <h4>
+                  <%= link_to movie.title, movie, "data-toggle" => "tooltip", title: movie.title %>
+                </h4>
+              </div>
+              <%= render 'movies/details', movie: movie %>
+            </div>
+          </div>
+        <% end -%>
+      <% end -%>
+    </div>
     <h1>List Like</h1>
     <table class="table">
       <tr>
@@ -37,7 +57,7 @@
       <div class="form-group">
         <label>Name</label>
         <select name="category" class="form-control">
-          <% @categories_like.each do |c| %>
+          <% @categories.each do |c| %>
             <option value="<%= c.id %>"><%= c.name %></option>
           <% end -%>
         </select>
@@ -49,7 +69,7 @@
     <div class="form-group">
       <label>Name</label>
       <select name="category" class="form-control">
-        <% @categories_unlike.each do |c| %>
+        <% @categories.each do |c| %>
           <option value="<%= c.id %>"><%= c.name %></option>
         <% end -%>
       </select>

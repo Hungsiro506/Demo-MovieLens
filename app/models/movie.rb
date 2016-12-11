@@ -1,4 +1,3 @@
-
 require 'elasticsearch/model'
 require "faraday"
 

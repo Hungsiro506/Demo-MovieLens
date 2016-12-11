@@ -5,8 +5,6 @@ class SearchController < ApplicationController
 		else
 			term = params[:term]
 			@articles = Movie.search term, fields: [:imdb_tagline], highlight:  true
-
-			
 		end
 	end
 

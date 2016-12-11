@@ -6,12 +6,11 @@ class MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
     @rating = current_user.rateds.where(movie_id: @movie.id).first unless current_user.blank?
-    p @rating
     # Create PredictionIO client.
     client = PredictionIO::EngineClient.new(ENV['PIO_ENGINE_URL'])
 
     # Query PredictionIO.
-    response = client.send_query('item' => @movie.id, 'num' => 4)
+    response = client.send_query('item' => @movie.id, 'num' => 10)
     
     @catogories_like = []
     if current_user && current_user.category_users
@@ -21,7 +20,7 @@ class MoviesController < ApplicationController
       h['userBias'] = 2
       h['item'] = @movie.id
       h['fields'] = [{"name" => "categories",  "values" => current_user.category_users.like.to_a, "bias": 1}, {"name" => "categories", "values" => current_user.category_users.un_like.to_a, "bias": -1.02}]
-      h['num'] = 4
+      h['num'] = 10
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
         "/queries.json?accessKey=#{ENV['PIO_ACCESS_KEY']}", h.to_json
       )).get

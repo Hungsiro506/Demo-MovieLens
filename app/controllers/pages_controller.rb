@@ -10,7 +10,6 @@ class PagesController < ApplicationController
     else
       response = client.send_query('user' => -1, 'num' => 25)
     end
-    p response
     @recomendations = []
     # Loop though recomendations.
     response['itemScores'].each do |item|

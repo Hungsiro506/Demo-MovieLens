@@ -1,4 +1,4 @@
 = form_for :term, url: search_path, method: :get do |form|
-  p
-    = text_field_tag :term, params[:term]
-    = submit_tag "Search", name: nil
+  .form-group
+    = text_field_tag :term, params[:term], class: "form-control", placeholder: "Search"
+    = submit_tag "Search", name: nil, class: "btn btn-default"

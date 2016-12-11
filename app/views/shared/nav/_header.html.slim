@@ -1,8 +1,12 @@
-nav.navbar.navbar-inverse.navbar-fixed-top
-  .container
+nav.navbar.navbar-default
+  .container-fluid
     .navbar-header
-      = link_to ' ', 'localhost:8008', class: 'navbar-brand'
-    .collapse.navbar-collapse
+      button.navbar-toggle.collapsed aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav
         li = link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path
         - if current_user
@@ -10,4 +14,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             li = link_to "Logout", destroy_user_session_path, method: :delete
         - else
             li = link_to "Login", new_user_session_path 
+      .navbar-form.navbar-left
+        = render 'search/form'
+        
+        
        

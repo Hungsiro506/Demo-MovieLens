@@ -6,37 +6,42 @@
 = render 'shared/flash'
 .container
   .row
-    = render 'search/form'
+    
   .row
     h1  Top movies
-    - @top_movies.each do |movie|
-      - if movie
-        .movie-thumbnail.col-md-4
-          .image
-            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
-          .title
-            h4 = link_to movie.title, movie
-
-          = render 'movies/details', movie: movie
+    .owl-carousel
+      - @top_movies.each do |movie|
+        - if movie
+          div
+            .movie-thumbnail
+              .image
+                = link_to image_tag(movie.poster_url, alt: movie.title), movie
+              .title
+                h4 = link_to movie.title, movie, "data-toggle" => "tooltip", title: movie.title
+              = render 'movies/details', movie: movie
   .row
     h1 Recommendation for you
-    - @recomendations.each do |movie|
-      - if movie
-        .movie-thumbnail.col-md-4
-          .image
-            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
-          .title
-            h4 = link_to movie.title, movie
+    .owl-carousel
+      - @recomendations.each do |movie|
+        - if movie
+          div
+            .movie-thumbnail
+              .image
+                = link_to image_tag(movie.poster_url, alt: movie.title), movie, "data-toggle" => "tooltip", title: "Hooray!"
+              .title
+                h4 = link_to movie.title, movie
 
-          = render 'movies/details', movie: movie
+              = render 'movies/details', movie: movie
   .row
     h1  Like category
-    - @catogories_like.each do |movie|
-      - if movie
-        .movie-thumbnail.col-md-4
-          .image
-            = link_to image_tag(movie.poster_url, alt: movie.title, width: 250), movie
-          .title
-            h4 = link_to movie.title, movie
+    .owl-carousel
+      - @catogories_like.each do |movie|
+        - if movie
+          div
+            .movie-thumbnail
+              .image
+                = link_to image_tag(movie.poster_url, alt: movie.title), movie
+              .title
+                h4 = link_to movie.title, movie
 
-          = render 'movies/details', movie: movie
+              = render 'movies/details', movie: movie

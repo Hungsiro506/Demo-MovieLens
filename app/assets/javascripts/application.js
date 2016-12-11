@@ -1,7 +1,8 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require star-rating
-//= require turbolinks
+//= require owl.carousel
 
 $(document).on('page:change', function() {
   // External Links
@@ -12,6 +13,10 @@ $(document).on('page:change', function() {
 });
 
 $(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    items: 6,
+    lazyLoad: true
+  });
   $("#input-id").rating();
   $('#input-id').on('rating.change', function(event, value, caption) {
     $.ajax({

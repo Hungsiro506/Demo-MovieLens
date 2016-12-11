@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.2'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'jquery-turbolinks'
 
 # Demo
 gem 'slim-rails'
@@ -52,3 +53,4 @@ group :development, :test do
 end
 
 gem 'devise'
+gem 'owlcarousel-rails'
