@@ -29,7 +29,7 @@ gem 'pg'
 
 gem 'predictionio'
 gem 'smarter_csv'
-
+gem 'typhoeus'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'

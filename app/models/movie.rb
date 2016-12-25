@@ -1,19 +1,22 @@
 require 'elasticsearch/model'
-require "faraday"
+require 'faraday'
+require 'typhoeus'
+require 'typhoeus/adapters/faraday'
 
 class Movie < ActiveRecord::Base
   scope :complete, -> { where('poster_url IS NOT NULL') }
   has_many :ratings, primary_key: :movielens_id, foreign_key: :movielens_movie_id
   has_many :rateds
-
   searchkick
+  Searchkick.client = Elasticsearch::Client.new(hosts: [ "http://search-butterflyhub-sycvprrdhsanhunjdquiuvi36y.us-west-2.es.amazonaws.com"], retry_on_failure: true,transport_options: { request: { timeout: 100000 } })
+
   def search_data
       {
         title: title,
         imdb_tagline: imdb_tagline
       }
   end
-  Searchkick.client = Elasticsearch::Client.new(hosts: [ "http://search-butterflyhub-sycvprrdhsanhunjdquiuvi36y.us-west-2.es.amazonaws.com"], retry_on_failure: true)
+  Searchkick.client = Elasticsearch::Client.new(hosts: [ "http://search-butterflyhub-sycvprrdhsanhunjdquiuvi36y.us-west-2.es.amazonaws.com"], retry_on_failure: true,transport_options: { request: { timeout: 100000 } })
 
 end
 

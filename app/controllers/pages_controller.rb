@@ -23,10 +23,13 @@ class PagesController < ApplicationController
       h['user'] = current_user.id
       h['fields'] = [{"name" => "categories", "values" => current_user.categories.un_like.to_a, "bias": -1}, {"name" => "categories", "values" =>  current_user.categories.like.to_a, "bias": 1.02}]
       h['num'] = 25
+      puts 'Persional Recommend request: '
+      puts h
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
         "/queries.json?accessKey=#{ENV['PIO_ACCESS_KEY']}", h.to_json
       )).get
-
+      puts 'Response  for Persional Recs '
+      puts response2
       # Loop though recomendations.
       eval(response2.body)[:itemScores].each do |item|
         @catogories_like << Movie.where(movielens_id: item[:item]).take
