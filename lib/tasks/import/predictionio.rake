@@ -14,10 +14,22 @@ namespace :import do
     #puts client
     puts 'Starting import...'.color(:blue)
 
-  
+   
 
+    puts 'Starting user import...'.color(:blue)
+    unique_users = Rating.uniq.pluck(:movielens_user_id)
+    user_count = unique_users.count
+    unique_users.each_with_index do |user_id, index|
+      client.acreate_event(
+        '$set',
+        'user',
+        user_id
+      )
+      #puts h
+      puts "Sent user ID #{user_id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter user_count}"
+    end
 
-    puts 'Starting movie import...'.color(:blue)
+     puts 'Starting movie import...'.color(:blue)
     movie_count = Movie.all.count
     Movie.find_each.with_index do |movie, index|
       client.acreate_event(
@@ -31,38 +43,20 @@ namespace :import do
       puts "Sent movie ID #{movie.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter movie_count}"
     end
 
-      puts 'Starting user import...'.color(:blue)
-    unique_users = Rating.uniq.pluck(:movielens_user_id)
-    user_count = unique_users.count
-    unique_users.each_with_index do |user_id, index|
+    puts 'Starting rating import...'.color(:blue)
+    rating_count = Rating.all.count
+    Rating.find_each.with_index do |rating, index|
       client.acreate_event(
-        '$set',
+        'rate',
         'user',
-        user_id
+        rating.movielens_user_id, {
+          'targetEntityType' => 'item',
+          'targetEntityId' => rating.movielens_movie_id,
+          'properties' => { 'rating' => rating.rating }
+        }
       )
-      #puts h
-      puts "Sent user ID #{user_id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter user_count}"
+      puts "Sent rating ID #{rating.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter rating_count}"
     end
-=begin
-  
-rescue Exception => e
-  
-end
-puts 'Starting rating import...'.color(:blue)
-rating_count = Rating.all.count
-Rating.find_each.with_index do |rating, index|
-  client.acreate_event(
-    'rate',
-    'user',
-    rating.movielens_user_id, {
-      'targetEntityType' => 'item',
-      'targetEntityId' => rating.movielens_movie_id,
-      'properties' => { 'rating' => rating.rating }
-    }
-  )
-  puts "Sent rating ID #{rating.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter rating_count}"
-end
-=end
     puts 'Done!'.color(:green)
 
     finish_time = Time.current
