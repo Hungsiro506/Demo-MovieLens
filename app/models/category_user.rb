@@ -3,4 +3,5 @@ class CategoryUser < ActiveRecord::Base
   scope :un_like, -> { where(like: false) }
 
   belongs_to :category
+  belongs_to :user
 end
