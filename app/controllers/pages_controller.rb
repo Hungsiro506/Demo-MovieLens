@@ -21,7 +21,7 @@ class PagesController < ApplicationController
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
       h = {}
       h['user'] = current_user.id
-      h['fields'] = [{"name" => "categories", "values" => current_user.categories.un_like.to_a, "bias": -1}, {"name" => "categories", "values" =>  current_user.categories.like.to_a, "bias": 1.02}]
+      h['fields'] = [{"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias": -1}, {"name" => "categories", "values" =>  current_user.categories.like.pluck(:name).to_a, "bias": 1.02}]
       h['num'] = 25
       puts 'Persional Recommend request: '
       puts h

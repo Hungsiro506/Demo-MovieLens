@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       h['user'] = current_user.id
       h['userBias'] = '2'
       h['item'] = @movie.id
-      h['fields'] = [{"name" => "categories",  "values" => current_user.categories.like.to_a, "bias": 1}, {"name" => "categories", "values" => current_user.categories.un_like.to_a, "bias": -1.02}]
+      h['fields'] = [{"name" => "categories",  "values" => current_user.categories.like.pluck(:name).to_a, "bias": 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias": -1.02}]
       h['num'] = 10
       puts h
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
