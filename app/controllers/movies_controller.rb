@@ -11,24 +11,24 @@ class MoviesController < ApplicationController
     #client = PredictionIO::EngineClient.new(ENV['PIO_ENGINE_URL'])
     # Query PredictionIO.
     #response = client.send_query('item' => @movie.id, 'num' => 10)
-    response = client.send_query(items: [@movie.movielens_id], num: 10)
+    response = client.send_query(item: @movie.movielens_id.to_s, num: 10)
     #response = client.send_query('item' => @movie.id, 'num' => 10)
-    puts response
     @catogories_like = []
+
+    bias_unlike = current_user.categories.un_like.blank? ? 0 : -1.02
+
     if current_user && current_user.categories
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
       h = {}
-      h['user'] = current_user.id.to_s
+      h['user'] = "1000"
       h['userBias'] = 2
       h['item'] =  @movie.id.to_s 
-      h['fields'] = [{"name" => "categories",  "values" => current_user.categories.like.pluck(:name).to_a, "bias": 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias": -1.02}]
+      h['fields'] = [{"name" => "categories",  "values" => ['Action'], "bias" => 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias" => bias_unlike}]
       h['num'] = 10
       puts h
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
         "/queries.json?accessKey=#{ENV['PIO_ACCESS_KEY']}", h.to_json
       )).get
-      puts 'contextual recs : '
-      puts response2
       # Loop though recomendations.
       eval(response2.body)[:itemScores].each do |item|
         @catogories_like << Movie.where(movielens_id: item[:item]).take
