@@ -23,10 +23,10 @@ class MoviesController < ApplicationController
     if current_user && current_user.categories
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
       h = {}
-      h['user'] = "1000"
+      h['user'] = current_user.id.to_s
       h['userBias'] = 2
       h['item'] =  @movie.id.to_s 
-      h['fields'] = [{"name" => "categories",  "values" => ['Action'], "bias" => 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias" => bias_unlike}]
+      h['fields'] = [{"name" => "categories",  "values" => current_user.categories.like.pluck(:name).to_a, "bias" => 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias" => bias_unlike}]
       h['num'] = 10
       puts h
       response2 = @http.apost(PredictionIO::AsyncRequest.new(
