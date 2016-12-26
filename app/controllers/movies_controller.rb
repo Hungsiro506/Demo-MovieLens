@@ -15,7 +15,10 @@ class MoviesController < ApplicationController
     #response = client.send_query('item' => @movie.id, 'num' => 10)
     @catogories_like = []
 
-    bias_unlike = current_user.categories.un_like.blank? ? 0 : -1.02
+    bias_unlike = 0
+    if current_user
+      bias_unlike = current_user.categories.un_like.blank? ? 0 : -1.02
+    end
 
     if current_user && current_user.categories
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
