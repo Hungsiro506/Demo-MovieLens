@@ -11,7 +11,9 @@ class MoviesController < ApplicationController
     #client = PredictionIO::EngineClient.new(ENV['PIO_ENGINE_URL'])
     # Query PredictionIO.
     #response = client.send_query('item' => @movie.id, 'num' => 10)
-    response = client.send_query(item: @movie.movielens_id.to_s, num: 10)
+    #response = client.send_query(item: @movie.movielens_id.to_s, num: 10)
+    response = client.send_query(items: [@movie.movielens_id], num: 10)
+    #response = client.send_query(items: [@movie.movielens_id], num: 10)
     #response = client.send_query('item' => @movie.id, 'num' => 10)
     @catogories_like = []
 
