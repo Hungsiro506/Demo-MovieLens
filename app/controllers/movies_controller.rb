@@ -18,9 +18,9 @@ class MoviesController < ApplicationController
     if current_user && current_user.categories
       @http = PredictionIO::Connection.new(URI(ENV['PIO_ENGINE_URL']), 1, 60)
       h = {}
-      h['user'] = current_user.id
-      h['userBias'] = '2'
-      h['item'] = @movie.id
+      h['user'] = current_user.id.to_s
+      h['userBias'] = 2
+      h['item'] =  @movie.id.to_s 
       h['fields'] = [{"name" => "categories",  "values" => current_user.categories.like.pluck(:name).to_a, "bias": 1}, {"name" => "categories", "values" => current_user.categories.un_like.pluck(:name).to_a, "bias": -1.02}]
       h['num'] = 10
       puts h
@@ -51,9 +51,9 @@ class MoviesController < ApplicationController
     client.create_event(
       'rate',
       'user',
-      current_user.id, {
+      current_user.id.to_s, {
         'targetEntityType' => 'item',
-        'targetEntityId' => params[:movie_id],
+        'targetEntityId' => params[:movie_id].to_s,
         'properties' => { 'rating' => params[:rate].to_f}
       }
     )

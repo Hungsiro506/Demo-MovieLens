@@ -4,7 +4,7 @@ include ActionView::Helpers::NumberHelper
 THREADS = 200
 namespace :import do
   desc 'Send the data to PredictionIO'
-  task predictionio: :environment do
+  task universal: :environment do
     start_time = Time.current
     #puts "Started at: #{start_time}".color(:blue)
     #puts ENV['PIO_ACCESS_KEY']
