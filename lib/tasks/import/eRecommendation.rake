@@ -42,7 +42,7 @@ namespace :import do
     end
 
 
-=begin
+
 
 
     puts 'Starting rating import...'.color(:blue)
@@ -65,12 +65,11 @@ namespace :import do
       end
 
       client.acreate_event(
-        'rate',
+        'view',
         'user',
         rating.movielens_user_id.to_s, {
           'targetEntityType' => 'item',
-          'targetEntityId' => rating.movielens_movie_id.to_s,
-          'properties' => { 'rating' => rating.rating.to_f }
+          'targetEntityId' => rating.movielens_movie_id.to_s      
         }
       )
      
@@ -78,7 +77,7 @@ namespace :import do
       
       puts "Sent rating ID #{rating.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter rating_count}"
     end
-=end 
+
     puts 'Done!'.color(:green)
 
     finish_time = Time.current
