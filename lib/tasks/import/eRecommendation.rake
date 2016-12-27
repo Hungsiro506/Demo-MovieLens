@@ -14,6 +14,35 @@ namespace :import do
     #puts client
     puts 'Starting import...'.color(:blue)
 
+ puts 'Starting user import...'.color(:blue)
+    unique_users = Rating.uniq.pluck(:movielens_user_id)
+    user_count = unique_users.count
+    unique_users.each_with_index do |user_id, index|
+      client.acreate_event(
+        '$set',
+        'user',
+        user_id.to_s
+      )
+      #puts h
+      puts "Sent user ID #{user_id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter user_count}"
+    end
+
+     puts 'Starting movie import...'.color(:blue)
+    movie_count = Movie.all.count
+    Movie.find_each.with_index do |movie, index|
+      client.acreate_event(
+        '$set',
+        'item',
+        movie.movielens_id.to_s,
+        #too much movies factors.
+        #{ 'properties' => { 'categories' => movie.genres,'actors' => movie.actors, 'year' => movie.year,'type' => movie.movie_type } }
+        { 'properties' => { 'categories' => movie.genres } }
+      )
+      puts "Sent movie ID #{movie.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter movie_count}"
+    end
+
+
+
 
     puts 'Starting rating import...'.color(:blue)
 
