@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     client.create_event(
       '$set',
       'user',
-      self.id
+      self.id.to_s
     )
   end
 end
