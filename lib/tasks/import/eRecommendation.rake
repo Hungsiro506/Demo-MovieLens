@@ -4,7 +4,7 @@ include ActionView::Helpers::NumberHelper
 THREADS = 200
 namespace :import do
   desc 'Send the data to PredictionIO'
-  task recommendation: :environment do
+  task eRecommendation: :environment do
     start_time = Time.current
     #puts "Started at: #{start_time}".color(:blue)
     #puts ENV['PIO_ACCESS_KEY']
@@ -42,6 +42,7 @@ namespace :import do
     end
 
 
+=begin
 
 
     puts 'Starting rating import...'.color(:blue)
@@ -77,6 +78,7 @@ namespace :import do
       
       puts "Sent rating ID #{rating.id} to PredictionIO. Action #{number_with_delimiter index + 1} of #{number_with_delimiter rating_count}"
     end
+=end 
     puts 'Done!'.color(:green)
 
     finish_time = Time.current
